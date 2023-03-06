@@ -45,6 +45,7 @@ let allPrices = [
   generateTableHead(table, data);
   generateTable(table, allPrices);
 
+//might work but not sure rn
  
   function reloadBazaarTable() {
     for (let i = 0; i< allPrices.length; i++) {
