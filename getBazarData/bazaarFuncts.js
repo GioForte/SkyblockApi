@@ -23,7 +23,7 @@ function makeCraftRecepies() {
         })
 }
 
-//   
+//Crafted profit
 const craftRecipies = {
     "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
     "FINE_AMBER_GEM":{"FLAWED_AMBER_GEM":80},
@@ -37,11 +37,41 @@ const craftRecipies = {
     'WINTER_WATER_ORB':{"WATER_ORB":1, "ICE_HUNK":128, "ENCHANTED_SNOW_BLOCK": 64, "BLUE_ICE_HUNK":32,"WHITE_GIFT":64, "GREEN_GIFT":16 },
     'WATER_ORB':{"ENCHANTED_RAW_FISH":16, "ENCHANTED_WATER_LILY":8, "ENCHANTED_RAW_SALMON":16, "ENCHANTED_PRISMARINE_SHARD":16, "DIVER_FRAGMENT":1, "ENCHANTED_PRISMARINE_CRYSTALS":16, "ENCHANTED_SPONGE":4, "ENCHANTED_PUFFERFISH":16, "ENCHANTED_CLOWNFISH":8},
     "CONDENSED_FERMENTO":{"FERMENTO":9},
-    "ENCHANTED_LAVA_BUCKET":{"ENCHANTED_LAVA_BUCKET":1},
     "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
     "ENCHANTMENT_PRISTINE_1":{"FINE_TOPAZ_GEM":40,"SUGAR_CANE":21},
-    "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168}
+    "ENCHANTMENT_PRISTINE_2":{"FINE_TOPAZ_GEM":80,"SUGAR_CANE":42},
+    "ENCHANTMENT_PRISTINE_3":{"FINE_TOPAZ_GEM":160,"SUGAR_CANE":84},
+    "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168},
+    "ENCHANTED_LAVA_BUCKET":{"ENCHANTED_COAL_BLOCK":2,"ENCHANTED_IRON":3},
+    "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1}
 };
+// "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
+//margin profit/Buy snd sell profit/Flipped profit
+const buyAndSellItems = [
+    "REFINED_MITHRIL",
+    "REFINED_TITANIUM", 
+    "ENCHANTED_LAVA_BUCKET",
+    "NECROMANCER_BROOCH",
+    "HOT_POTATO_BOOK",
+    "CONDENSED_FERMENTO",
+    "PROTECTOR_FRAGMENT",
+    "OLD_FRAGMENT",
+    "UNSTABLE_FRAGMENT",
+    "WISE_FRAGMENT",
+    "YOUNG_FRAGMENT",
+    "STRONG_FRAGMENT",
+    "SUPERIOR_FRAGMENT",
+    "HOLY_FRAGMENT",
+    "STOCK_OF_STONKS",
+    "SUPER_COMPACTOR_3000",
+    "DWARVEN_COMPACTOR",
+    "ENCHANTED_REDSTONE_BLOCK",
+    "FERMENTO",
+    "ENCHANTED_BAKED_POTATO",
+    "ENCHANTED_WATER_LILY",
+    "ENCHANTED_SNOW_BLOCK"
+
+]
 //"PIGMAN_SWORD":{"ENCHANTED_GRILLED_PORK":48},
 
 const auctionItems = [
@@ -183,6 +213,18 @@ function getAhPrices(products, craftItems, craftedItem) {
             "best_net_gain":sellPrice-buyOrderPrice,
             "margin_per": (sellPrice-buyOrderPrice)/sellPrice};
 }
+function formatInfo(craftedItem, buyOrderPrice, sellOrderPrice,instaBuyPrice, craftedInstaSell,products ) {
+    return {"item_name":craftedItem, 
+    "buy_order_price": buyOrderPrice, 
+    "insta_buy_price":instaBuyPrice,
+    "sell_order_price":sellOrderPrice, 
+    "insta_sell_price":craftedInstaSell, 
+    "buy_volume":products[craftedItem].quick_status.buyVolume,
+    "sell_volume":products[craftedItem].quick_status.sellVolume,
+    "best_net_gain":sellOrderPrice-buyOrderPrice,
+    "margin_per": 100*((sellOrderPrice-buyOrderPrice)/sellOrderPrice)
+    };
+}
   /*
     Products: the data  from teh bazaar
     craftItems: Object of all craft items for crafted item
@@ -197,14 +239,18 @@ function getAhPrices(products, craftItems, craftedItem) {
     var craftedSellOrder = getSellOrder(products[craftedItem]);
     var craftedInstaSell = getInstaSell(products[craftedItem]);
 
-    return {"item_name":craftedItem, "buy_order_price": buyOrderPrice, 
-            "insta_buy_price":instaBuyPrice,
-            "sell_order_price":craftedSellOrder, 
-            "insta_sell_price":craftedInstaSell, 
-            "best_net_gain":craftedSellOrder-buyOrderPrice,
-            "margin_per": (craftedSellOrder-buyOrderPrice)/craftedSellOrder
-            };//may not work "Sell Volume": products.sell_summary.quick_status.sellVolume
+    return formatInfo(craftedItem, buyOrderPrice, craftedSellOrder,instaBuyPrice,  craftedInstaSell,products );
     }
+
+ }
+ function getBuyAndSellPrices(products, item) {
+    var buyOrderPrice =getBuyOrder(products[item]);
+    var sellOrderPrice = getSellOrder(products[item]);
+    var instaBuyPrice = getInstaBuy(products[item]);
+    var instaSellPrice = getInstaSell(products[item]);
+
+
+    return formatInfo(item, buyOrderPrice, sellOrderPrice,  instaBuyPrice, instaSellPrice, products);
 
  }
 //  async function fetch_demo() {
@@ -292,7 +338,9 @@ function fast_search(ahData, searchTerm) {
 */
 function testFunct() {
     window.alert("HI");
-    makeCraftRecepies();
+    const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
+    window.alert(JSON.stringify(bazaarData.products.ENCHANTMENT_PRISTINE_4.quick_status));
+
 }
  
  
@@ -312,6 +360,15 @@ function getOnlineStatus() {
         document.getElementById("status-display").innerHTML = "YES!!!!!!!!!!";
     }else{
         document.getElementById("status-display").innerHTML = "NO!!!!!!!!!!!";
+    }
+}
+
+function getCharlesOnlineStatus() {
+    var onlineStatus = getApiCall('https://api.hypixel.net/status?uuid=10c84c46f4834c1082b56c5b6fb96d1e');//f4343fa3ec3c42c9a7229488dc029e55 
+    if(onlineStatus.session.online) {
+        document.getElementById("statusdisplay").innerHTML = "YES!!!!!!!!!!";
+    }else{
+        document.getElementById("statusdisplay").innerHTML = "NO!!!!!!!!!!!";
     }
 }
 function getMyStatus() {
