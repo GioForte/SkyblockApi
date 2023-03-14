@@ -18,6 +18,8 @@
 <p id="error"></p>
 <button class="main-analyze-button" onclick="getOnlineStatus()">Is Val(orie) Online?</button>
 <p id="status-display"></p>
+<button class="main-analyze-button" onclick="getCharlesOnlineStatus()">Is Charles Online?</button>
+<p id="statusdisplay"></p>
 <button class="main-analyze-button" onclick="getMyStatus()">Where am I?</button>
 <p id="my-status"></p>
 </div>
@@ -26,7 +28,10 @@
 <button class="main-analyze-button" onclick="reloadAh()">Reload Auction house Data</button>
 
 <button class="main-analyze-button" onclick="reloadBazaarTable()">Reload Bazaar Data</button>
-<table></table>
+<h1>Crafted Profit </h1>
+<table id="CraftedProfitTable"></table>
+<h1>Flipped/Margin Profit</h1>
+<table id="FlippedMarginProfitTable"></table>
   <script src="build-table.js"> </script>
 
 </body>
