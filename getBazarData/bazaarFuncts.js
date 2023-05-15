@@ -43,7 +43,9 @@ const craftRecipies = {
     "ENCHANTMENT_PRISTINE_3":{"FINE_TOPAZ_GEM":160,"SUGAR_CANE":84},
     "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168},
     "ENCHANTED_LAVA_BUCKET":{"ENCHANTED_COAL_BLOCK":2,"ENCHANTED_IRON":3},
-    "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1}
+    "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1},
+    "FULL_CHUM_BUCKET":{"CHUM":10, "EMPTY_CHUM_BUCKET":1},
+    "EMPTY_CHUM_BUCKET":{"GLOWING_MUSHROOM": 8, "COIN":2000} 
 };
 // "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
 //margin profit/Buy snd sell profit/Flipped profit
@@ -69,7 +71,26 @@ const buyAndSellItems = [
     "FERMENTO",
     "ENCHANTED_BAKED_POTATO",
     "ENCHANTED_WATER_LILY",
-    "ENCHANTED_SNOW_BLOCK"
+    "ENCHANTED_SNOW_BLOCK",
+
+    "DIVAN_FRAGMENT",
+    "BOB_OMB",
+    "CORLEONITE",
+    "JUNGLE_KEY",
+    "SYNTHETIC_HEART",
+    "SUPERLITE_MOTOR",
+    "CONTROL_SWITCH",
+    "ELECTRON_TRANSMITTER",
+    "FTX_3070",
+    "ROBOTRON_REFLECTOR",
+    "SLUDGE_JUICE",
+    "YOGGIE",
+
+    "CHUM",
+    "EMPTY_CHUM_BUCKET",
+    "FULL_CHUM_BUCKET",
+    "GLOWING_MUSHROOM"
+
 
 ]
 //"PIGMAN_SWORD":{"ENCHANTED_GRILLED_PORK":48},
@@ -164,24 +185,48 @@ function fetchData(link) {
 } 
 
   function getBuyOrder(item) {
+    try{
         return item.sell_summary[0].pricePerUnit;
+    }catch(e) {
+        console.log(item);
+        return NaN
+    }
   }
   function getSellOrder(item) {
-    return item.buy_summary[0].pricePerUnit;
+    try {
+        return item.buy_summary[0].pricePerUnit;
+    }catch(e) {
+        console.log(item);
+        return NaN
+    }
   }
   function getInstaBuy(item) {
-    return item.buy_summary[0].pricePerUnit;
+    try {
+        return item.buy_summary[0].pricePerUnit;
+    }catch(e) {
+        console.log(item);
+        return NaN
+    }
   }
   function getInstaSell(item) {
-    return item.sell_summary[0].pricePerUnit;
+    try {
+        return item.sell_summary[0].pricePerUnit;
+    }catch(e) {
+        console.log(item);
+        return NaN
+    }
   }
 
 
   function getTotalBuyOrder(products, componentOb) {
     var sum = 0
     var keyArray = Object.keys(componentOb);
-    for(var i = 0; i<keyArray.length; i++) {
-        sum = sum + getBuyOrder(products[keyArray[i]])*componentOb[keyArray[i]];
+    for(item of keyArray) {
+        if (item == "COIN") {
+            sum = sum + componentOb[item];
+        }else {
+            sum = sum + getBuyOrder(products[item])*componentOb[item];
+        }
     }
     return sum;
   }
@@ -189,20 +234,16 @@ function fetchData(link) {
   function getTotalInstaBuy(products, componentOb) {
     var sum = 0
     var keyArray = Object.keys(componentOb);
-    for(var i = 0; i<keyArray.length; i++) {
-        sum = sum + getInstaBuy(products[keyArray[i]])*componentOb[keyArray[i]];
+    for(item of keyArray) {
+        if (item == "COIN") {
+            sum = sum + componentOb[item];
+        }else {
+            sum = sum + getInstaBuy(products[item])*componentOb[item];
+        }
     }
     return sum;
   }
 
-  function getBobComponents(products) {
-        var o_bobbinEn = getTotalBuyOrder(products, bobbinEn);
-        var i_bobbinEn = getTotalInstaBuy(products, bobbinEn);
-        var o_bobbinEnPrice = getSellOrder(products.ENCHANTMENT_ULTIMATE_BOBBIN_TIME_3);
-        var i_bobbinEnPrice = getInstaSell(products.ENCHANTMENT_ULTIMATE_BOBBIN_TIME_3);
-        return "Buy Order: "+ o_bobbinEn+"\nInsta buy: "+i_bobbinEn+"\nSell Order price: "+o_bobbinEnPrice+ "\nInsta Sell: "+i_bobbinEnPrice;
-
-  }
 function getAhPrices(products, craftItems, craftedItem) {
     var buyOrderPrice = getTotalBuyOrder(products, craftItems);
     var instaBuyPrice = getTotalInstaBuy(products, craftItems);
@@ -337,9 +378,9 @@ function fast_search(ahData, searchTerm) {
     fUNCTION FOR TESTING THINGS
 */
 function testFunct() {
-    window.alert("HI");
+    //window.alert("HI");
     const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
-    window.alert(JSON.stringify(bazaarData.products.ENCHANTMENT_PRISTINE_4.quick_status));
+    window.alert(JSON.stringify(bazaarData.products.FERMENTO.buy_summary[0].pricePerUnit));
 
 }
  
