@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <nav>
+        <ul>
+            <li><a href="HomePage.html">Home</a></li>
+            <li><a href="MiningPage.html">Mining</a></li>
+            <li><a href="Services.html">Services</a></li>
+            <li><a href="Resources.html">Resources</a></li>
+            <li><a href="Contact.html">Contact</a></li>
+        </ul>
+        </nav>
+        <script src="bazaarFuncts.js"> </script>
+</head>
+<body>
+   
+    <button class="main-analyze-button" onclick="testFunct()">test button</button>
+  <div id="container">
+      <div id="search">
+          <label for="searchInput">
+              Input search term testing<i class="fa fa-search"></i>
+          </label>
+          <input id="searchInput" onkeyup="search_bar()" type="text" placeholder="Search...">
+      </div>
+  <p id="error"></p>
+  <button class="main-analyze-button" onclick="getBestMM()">Find best way to make money</button>
+  <p id="best-mm"></p>
+  <button class="main-analyze-button" onclick="reloadAh()">Reload Auction house Data</button>
+  
+  <button class="main-analyze-button" onclick="reloadBazaarTable()">Reload Bazaar Data</button>
+  <h1>Crafted Profit </h1>
+  <table id="CraftedProfitTable"></table>
+  <h1>Flipped/Margin Profit</h1>
+  <table id="FlippedMarginProfitTable"></table>
+    <script src="build-table.js"> </script>
+  
+  </body>
+</html>
