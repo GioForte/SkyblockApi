@@ -46,9 +46,10 @@ const craftRecipies = {
     "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1},
     "FULL_CHUM_BUCKET":{"CHUM":10, "EMPTY_CHUM_BUCKET":1},
     "EMPTY_CHUM_BUCKET":{"GLOWING_MUSHROOM": 8, "COIN":2000},
-    "THE_ART_OF_WAR":{"ENCHANTED_GRILLED_PORK":2, "COIN":7500000},
+    
     "ENCHANTED_GRILLED_PORK":{"ENCHANTED_PORK":160}
 };
+// "THE_ART_OF_WAR":{"ENCHANTED_GRILLED_PORK":2, "COIN":7500000}, Gone because only available for 4 year anniversary
 // "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
 //margin profit/Buy snd sell profit/Flipped profit
 const buyAndSellItems = [
