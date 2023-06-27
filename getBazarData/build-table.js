@@ -16,12 +16,14 @@ let flippedPrices = [];
 
     }
   }
+
   function getFlippedPrices(flippedPrices) {
     const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
     for (item of buyAndSellItems) {
       flippedPrices.push(getBuyAndSellPrices(bazaarData.products, item));
     }
   }
+
   function generateTableHead(table, data) {
     let thead = table.createTHead();
     let row = thead.insertRow();
@@ -32,7 +34,6 @@ let flippedPrices = [];
       row.appendChild(th);
     }
   }
-
 
   function generateTable(table, data) {
     for (let element of data) {
@@ -52,6 +53,7 @@ let flippedPrices = [];
       }
     }
   }
+
   function deleteTableRows(table) {
     for (let i = 0; i< craftedPrices.length; i++) {
         
