@@ -99,39 +99,59 @@ const buyAndSellItems = [
 
 ]
 //"PIGMAN_SWORD":{"ENCHANTED_GRILLED_PORK":48},
+var reader;
+// var realresult = [];
+// const file = new File(realresult, "craftRecipies.txt");
+function checkFileAPI() {
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        reader = new FileReader();
+        return true; 
+    } else {
+        alert('The File APIs are not fully supported by your browser. Fallback required.');
+        return false;
+    }
+}
+
+/**
+ * read text input
+ */
+function readText(filePath) {
+    var output = ""; //placeholder for text output
+    if(filePath) {     
+           
+        reader.onload = function (e) {
+            output = e.target.result;
+            displayContents(output);
+        };//end onload()
+        reader.readAsText(filePath.files[0]);   
+        
+    }//end if html5 filelist support
+    else { //this is where you could fallback to Java Applet, Flash or similar
+        return false;
+    }       
+    return true;
+}   
+
+/**
+ * display content using a basic HTML replacement
+ */
+function displayContents(txt) {
+window.alert(txt);
+//     var el = document.getElementById('main'); 
+//     el.innerHTML = txt; //display output in DOM
+}  
+
+
+function testFunct() {
+    // const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
+    // window.alert(JSON.stringify(bazaarData.products.FERMENTO.buy_summary[0].pricePerUnit));
+
+}
 
 const auctionItems = [
     "PIGMAN_SWORD"];
 var aHData;
-class BinarySearchTree {
-    constructor() {
-        this.root = null;
-    }
-    insert(data) {
-        var newNode = new Node(data);
 
-        if(this.root == null)
-            this.root = newNode;
-        else    
-            this.insertNode(this.root, newNode);
-
-    }
-    insertNode(node, newNode) {
-        if(newNode.data < node.data) {
-            if(node.left ===null) 
-                node.left =newNode;
-            else    
-                this.insertNode(node.left, newNode);
-            
-        } else {
-            if(node.right === null)
-                node.right = newNode;
-            else 
-                this.insertNode(node.right, newNode);
-        }
-
-    }
-}
 function getApiCall(link) {
     var request = new XMLHttpRequest();
   
@@ -382,12 +402,7 @@ function fast_search(ahData, searchTerm) {
 /*
     fUNCTION FOR TESTING THINGS
 */
-function testFunct() {
-    //window.alert("HI");
-    const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
-    window.alert(JSON.stringify(bazaarData.products.FERMENTO.buy_summary[0].pricePerUnit));
 
-}
  
  
 function main() {

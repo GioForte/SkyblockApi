@@ -19,8 +19,10 @@
         </nav>
   <script src="bazaarFuncts.js"> </script>
 </head>
-<body>
-   
+<body  onload="checkFileAPI();">
+  <div id="container">    
+    <input type="file" value="craftRecipies.txt" onchange='readText(this)' />
+  </div>
   <button class="main-analyze-button" onclick="testFunct()">test button</button>
 <div id="container">
     <div id="search">
