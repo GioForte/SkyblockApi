@@ -19,7 +19,7 @@ let flippedPrices = [];
 
   function getFlippedPrices(flippedPrices, flipItems) {
     const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
-    for (item of Object.keys(flipItems)) {
+    for (item of flipItems) {
       flippedPrices.push(getBuyAndSellPrices(bazaarData.products, item));
     }
   }
@@ -60,7 +60,7 @@ let flippedPrices = [];
      table.deleteRow(i+1);
     }
   }
-  
+
 function generateFullCraftTable(craftRecipies) {
   generateCraftedPrices(craftedPrices, craftRecipies);
   let craftTable = document.getElementById("CraftedProfitTable");
@@ -76,10 +76,17 @@ function generateFullFlipTable(craftRecipies) {
   generateTableHead(flipTable, flipData);
   generateTable(flipTable, flippedPrices);
 }
+function generateAltFlipTable(flipArray) {
+  getFlippedPrices(flippedPrices, flipArray);
+  let flipTable = document.getElementById("FlippedMarginProfitTable");
+  let flipData = Object.keys(flippedPrices[0]);
+  generateTableHead(flipTable, flipData);
+  generateTable(flipTable, flippedPrices);
+}
 
-function generateTables(craftRecipies) {
+function generateTables(craftRecipies, flipArray) {
   generateFullCraftTable(craftRecipies);
-  generateFullFlipTable(craftRecipies);
+  generateFullFlipTable(flipArray.concat(Object.keys(craftRecipies)));
 }
 
 //generateFullTable(craftedPrices, "CraftedProfitTable");

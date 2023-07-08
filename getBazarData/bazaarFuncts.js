@@ -30,6 +30,7 @@ const miningRecipies = {
     "FLAWLESS_AMBER_GEM":{"FLAWED_AMBER_GEM":6400}
 
 };
+
 const odditiesRecipies = {
     "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
     "ENCHANTMENT_PRISTINE_1":{"FINE_TOPAZ_GEM":40,"SUGAR_CANE":21},
@@ -41,6 +42,21 @@ const odditiesRecipies = {
 const fishRecipies = {};
 const farmingRecipies = {};
 const woodRecipies = {};
+const combatRecipies = {};
+
+const miningFlip = [
+    "SYNTHETIC_HEART",
+    "SUPERLITE_MOTOR",
+    "CONTROL_SWITCH",
+    "ELECTRON_TRANSMITTER",
+    "FTX_3070",
+    "ROBOTRON_REFLECTOR"
+];
+const fishFlip = [];
+const farmingFlip = [];
+const woodFlip = [];
+const combatFlip = [];
+const odditiesFlip = []
 //Crafted profit
 const craftRecipies = {
     "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
