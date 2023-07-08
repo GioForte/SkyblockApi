@@ -8,7 +8,7 @@ let flippedPrices = [];
  
 // }
 
-  function generateCraftedPrices(craftedPrices) {
+  function generateCraftedPrices(craftedPrices, craftRecipies) {
     const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
     let craftItems = Object.keys(craftRecipies);
     for (item of craftItems) {
@@ -17,9 +17,9 @@ let flippedPrices = [];
     }
   }
 
-  function getFlippedPrices(flippedPrices) {
+  function getFlippedPrices(flippedPrices, flipItems) {
     const bazaarData = getApiCall('https://api.hypixel.net/skyblock/bazaar');
-    for (item of buyAndSellItems) {
+    for (item of Object.keys(flipItems)) {
       flippedPrices.push(getBuyAndSellPrices(bazaarData.products, item));
     }
   }
@@ -60,15 +60,30 @@ let flippedPrices = [];
      table.deleteRow(i+1);
     }
   }
-function generateFullTable(prices, elementId) {
-  generateCraftedPrices(prices);
-  let craftTable = document.getElementById(elementId);
-  let craftData = Object.keys(prices[0]);
+  
+function generateFullCraftTable(craftRecipies) {
+  generateCraftedPrices(craftedPrices, craftRecipies);
+  let craftTable = document.getElementById("CraftedProfitTable");
+  let craftData = Object.keys(craftedPrices[0]);
   generateTableHead(craftTable, craftData);
-  generateTable(craftTable, prices);
+  generateTable(craftTable, craftedPrices);
 }
-generateFullTable(craftedPrices, "CraftedProfitTable");
-generateFullTable(flippedPrices, "FlippedMarginProfitTable");
+
+function generateFullFlipTable(craftRecipies) {
+  getFlippedPrices(flippedPrices, craftRecipies);
+  let flipTable = document.getElementById("FlippedMarginProfitTable");
+  let flipData = Object.keys(flippedPrices[0]);
+  generateTableHead(flipTable, flipData);
+  generateTable(flipTable, flippedPrices);
+}
+
+function generateTables(craftRecipies) {
+  generateFullCraftTable(craftRecipies);
+  generateFullFlipTable(craftRecipies);
+}
+
+//generateFullTable(craftedPrices, "CraftedProfitTable");
+//generateFullTable(flippedPrices, "FlippedMarginProfitTable");
 
 //might work but not sure rn
  
@@ -77,7 +92,7 @@ generateFullTable(flippedPrices, "FlippedMarginProfitTable");
         craftedPrices.pop();
     }
    // deleteTableRows(table);
-    generateCraftedPrices(craftedPrices);
+    generateCraftedPrices(craftedPrices, craftRecipies);
      let data = Object.keys(craftedPrices[0]);
   
    // generateTableHead(table, data);

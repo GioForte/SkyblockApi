@@ -22,7 +22,25 @@ function makeCraftRecepies() {
             fr.readAsText(this.files[0]);
         })
 }
+const miningRecipies = {
+    "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
+    "FINE_AMBER_GEM":{"FLAWED_AMBER_GEM":80},
+    "FINE_AMETHYST_GEM":{"FLAWED_AMETHYST_GEM":80},
+    "FINE_TOPAZ_GEM":{"FLAWED_TOPAZ_GEM":80},
+    "FLAWLESS_AMBER_GEM":{"FLAWED_AMBER_GEM":6400}
 
+};
+const odditiesRecipies = {
+    "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
+    "ENCHANTMENT_PRISTINE_1":{"FINE_TOPAZ_GEM":40,"SUGAR_CANE":21},
+    "ENCHANTMENT_PRISTINE_2":{"FINE_TOPAZ_GEM":80,"SUGAR_CANE":42},
+    "ENCHANTMENT_PRISTINE_3":{"FINE_TOPAZ_GEM":160,"SUGAR_CANE":84},
+    "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168},
+    "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1}
+};
+const fishRecipies = {};
+const farmingRecipies = {};
+const woodRecipies = {};
 //Crafted profit
 const craftRecipies = {
     "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
