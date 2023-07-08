@@ -60,18 +60,15 @@ let flippedPrices = [];
      table.deleteRow(i+1);
     }
   }
-
-  generateCraftedPrices(craftedPrices);
-  let craftTable = document.getElementById("CraftedProfitTable");
-  let craftData = Object.keys(craftedPrices[0]);
+function generateFullTable(prices, elementId) {
+  generateCraftedPrices(prices);
+  let craftTable = document.getElementById(elementId);
+  let craftData = Object.keys(prices[0]);
   generateTableHead(craftTable, craftData);
-  generateTable(craftTable, craftedPrices);
-  
-  getFlippedPrices(flippedPrices);
-  let flippedTable = document.getElementById("FlippedMarginProfitTable");
-  let flippedData = Object.keys(flippedPrices[0]);
-  generateTableHead(flippedTable, flippedData);
-  generateTable(flippedTable, flippedPrices);
+  generateTable(craftTable, prices);
+}
+generateFullTable(craftedPrices, "CraftedProfitTable");
+generateFullTable(flippedPrices, "FlippedMarginProfitTable");
 
 //might work but not sure rn
  
