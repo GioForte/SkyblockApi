@@ -3,6 +3,7 @@ Things to do:
  - make craftRecepies have all recipies from each recipe JSON
  - find a better way to structure the crafting recipies and flips
  - Sort the arrays to show which makes the most money at the top (make this a switch)
+ - Make a way to easily have statistics for 2 step crafting( Then 3 step and above)
 */
 
 //const bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
@@ -11,9 +12,11 @@ Things to do:
 
 
 
-
+// Items that can be flipped for money but cannot be crafted
 const flipItems = {
     "farmingFlip":[
+        "FERMENTO",
+    
 
     ],
     "miningFlip":[
@@ -22,7 +25,13 @@ const flipItems = {
         "CONTROL_SWITCH",
         "ELECTRON_TRANSMITTER",
         "FTX_3070",
-        "ROBOTRON_REFLECTOR"
+        "ROBOTRON_REFLECTOR",
+        "CORLEONITE",
+        "DIVAN_FRAGMENT",
+        "BOB_OMB",
+        "JUNGLE_KEY",
+        "SLUDGE_JUICE",
+        "YOGGIE",
 
     ],
     "combatFlip":[
@@ -32,14 +41,26 @@ const flipItems = {
 
     ],
     "fishingFlip":[
+        "CHUM",
+        "GLOWING_MUSHROOM"
 
     ],
     "odditiesFlip":[
-
+        "NECROMANCER_BROOCH",
+        "PROTECTOR_FRAGMENT",
+        "OLD_FRAGMENT",
+        "UNSTABLE_FRAGMENT",
+        "WISE_FRAGMENT",
+        "YOUNG_FRAGMENT",
+        "STRONG_FRAGMENT",
+        "SUPERIOR_FRAGMENT",
+        "HOLY_FRAGMENT",
+        "STOCK_OF_STONKS",
+        "THE_ART_OF_WAR"
     ]
-}
+};
 
-//Crafted profit
+//Craft recipies for profit and used for flipped (May neeed to change)
 
 const craftRecipies = {
     "farmingRecipies":{
@@ -88,51 +109,6 @@ const craftRecipies = {
 // "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
 //margin profit/Buy snd sell profit/Flipped profit
 
-const buyAndSellItems = [
-    "REFINED_MITHRIL",
-    "REFINED_TITANIUM", 
-    "NECROMANCER_BROOCH",
-    //"HOT_POTATO_BOOK",
-    "CONDENSED_FERMENTO",
-    "PROTECTOR_FRAGMENT",
-    "OLD_FRAGMENT",
-    "UNSTABLE_FRAGMENT",
-    "WISE_FRAGMENT",
-    "YOUNG_FRAGMENT",
-    "STRONG_FRAGMENT",
-    "SUPERIOR_FRAGMENT",
-    "HOLY_FRAGMENT",
-    "STOCK_OF_STONKS",
-    "SUPER_COMPACTOR_3000",
-    "DWARVEN_COMPACTOR",
-    "ENCHANTED_REDSTONE_BLOCK",
-    "FERMENTO",
-    "ENCHANTED_BAKED_POTATO",
-    "ENCHANTED_WATER_LILY",
-    "ENCHANTED_SNOW_BLOCK",
-
-    "DIVAN_FRAGMENT",
-    "BOB_OMB",
-    "CORLEONITE",
-    "JUNGLE_KEY",
-    "SYNTHETIC_HEART",
-    "SUPERLITE_MOTOR",
-    "CONTROL_SWITCH",
-    "ELECTRON_TRANSMITTER",
-    "FTX_3070",
-    "ROBOTRON_REFLECTOR",
-    "SLUDGE_JUICE",
-    "YOGGIE",
-
-    "CHUM",
-    "EMPTY_CHUM_BUCKET",
-    "FULL_CHUM_BUCKET",
-    "GLOWING_MUSHROOM",
-
-    "THE_ART_OF_WAR"
-
-
-]
 
 //"PIGMAN_SWORD":{"ENCHANTED_GRILLED_PORK":48},
 var reader;
