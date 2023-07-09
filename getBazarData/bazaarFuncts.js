@@ -11,19 +11,33 @@ Things to do:
 
 
 
-const miningFlip = [
-    "SYNTHETIC_HEART",
-    "SUPERLITE_MOTOR",
-    "CONTROL_SWITCH",
-    "ELECTRON_TRANSMITTER",
-    "FTX_3070",
-    "ROBOTRON_REFLECTOR"
-];
-const fishFlip = [];
-const farmingFlip = [];
-const woodFlip = [];
-const combatFlip = [];
-const odditiesFlip = [];
+
+const flipItems = {
+    "farmingFlip":[
+
+    ],
+    "miningFlip":[
+        "SYNTHETIC_HEART",
+        "SUPERLITE_MOTOR",
+        "CONTROL_SWITCH",
+        "ELECTRON_TRANSMITTER",
+        "FTX_3070",
+        "ROBOTRON_REFLECTOR"
+
+    ],
+    "combatFlip":[
+
+    ],
+    "woodFlip":[
+
+    ],
+    "fishingFlip":[
+
+    ],
+    "odditiesFlip":[
+
+    ]
+}
 
 //Crafted profit
 
@@ -69,9 +83,11 @@ const craftRecipies = {
     }
 
 };
+
 // "THE_ART_OF_WAR":{"ENCHANTED_GRILLED_PORK":2, "COIN":7500000}, Gone because only available for 4 year anniversary
 // "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
 //margin profit/Buy snd sell profit/Flipped profit
+
 const buyAndSellItems = [
     "REFINED_MITHRIL",
     "REFINED_TITANIUM", 
