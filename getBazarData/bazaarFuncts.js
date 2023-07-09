@@ -1,9 +1,11 @@
 /*
 Things to do: 
- - make craftRecepies have all recipies from each recipe JSON
- - find a better way to structure the crafting recipies and flips
+ - make craftRecepies have all recipies from each recipe JSON 
+ - find a better way to structure the crafting recipies and flips (DONE)
  - Sort the arrays to show which makes the most money at the top (make this a switch)
  - Make a way to easily have statistics for 2 step crafting( Then 3 step and above)
+ - get reading and writing to files working
+ - allow to make and store crafting recipies on the application
 */
 
 //const bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
@@ -13,7 +15,7 @@ Things to do:
 // Items that can be flipped for money but cannot be crafted
 const flipItems = {
     "farmingFlip":[
-        "FERMENTO",
+        "FERMENTO"
     
 
     ],
@@ -29,7 +31,7 @@ const flipItems = {
         "BOB_OMB",
         "JUNGLE_KEY",
         "SLUDGE_JUICE",
-        "YOGGIE",
+        "YOGGIE"
 
     ],
     "combatFlip":[
