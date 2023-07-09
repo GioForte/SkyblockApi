@@ -9,9 +9,6 @@ Things to do:
 //const bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 //const fs = require('fs')
 
-
-
-
 // Items that can be flipped for money but cannot be crafted
 const flipItems = {
     "farmingFlip":[
@@ -267,7 +264,6 @@ function fetchData(link) {
     }
   }
 
-
   function getTotalBuyOrder(products, componentOb) {
     var sum = 0
     var keyArray = Object.keys(componentOb);
@@ -493,10 +489,6 @@ function getBestMM() {
 function reloadAh() {
     aHData = formatAHData();
 }
-
-
-// 
-
 
 // searchInput.addEventListener("keyup", (event) => {
 //     const { value } = event.target;
