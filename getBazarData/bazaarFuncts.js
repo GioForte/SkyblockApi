@@ -1,161 +1,119 @@
 /*
 Things to do: 
- - make craftRecepies have all recipies from each recipe JSON
- - find a better way to structure the crafting recipies and flips
+ - make craftRecepies have all recipies from each recipe JSON 
+ - find a better way to structure the crafting recipies and flips (DONE)
  - Sort the arrays to show which makes the most money at the top (make this a switch)
+ - Make a way to easily have statistics for 2 step crafting( Then 3 step and above)
+ - get reading and writing to files working
+ - allow to make and store crafting recipies on the application
 */
 
-
 //const bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
-
 //const fs = require('fs')
 
-const bobbinEn = {"SPOOKY_WATER_ORB":1, "SHARK_WATER_ORB":1, "WINTER_WATER_ORB":1, "LAVA_WATER_ORB":1, "BOBBIN_SCRIPTURES":1};
-const pigman_sword = {"ENCHANTED_GRILLED_PORK":48};
-const shark_water_orb = {"WATER_ORB":1, "ENCHANTED_SHARK_FIN": 12,"BLUE_SHARK_TOOTH":8, "TIGER_SHARK_TOOTH":4, "NURSE_SHARK_TOOTH":16, "GREAT_WHITE_SHARK_TOOTH":1 };
-const winter_water_orb = {"WATER_ORB":1, "ICE_HUNK":128, "ENCHANTED_SNOW_BLOCK": 64, "BLUE_ICE_HUNK":32,"WHITE_GIFT":64, "GREEN_GIFT":16 };
-const water_orb = {"ENCHANTED_RAW_FISH":16, "ENCHANTED_WATER_LILY":8, "ENCHANTED_RAW_SALMON":16, "ENCHANTED_PRISMARINE_SHARD":16, "DIVER_FRAGMENT":1, "ENCHANTED_PRISMARINE_CRYSTALS":16, "ENCHANTED_SPONGE":4, "ENCHANTED_PUFFERFISH":16, "ENCHANTED_CLOWNFISH":8}
+//margin profit/Buy snd sell profit/Flipped profit
+// Items that can be flipped for money but cannot be crafted
+const flipItems = {
+    "farmingFlip":[
+        "FERMENTO"
+    
 
+    ],
+    "miningFlip":[
+        "SYNTHETIC_HEART",
+        "SUPERLITE_MOTOR",
+        "CONTROL_SWITCH",
+        "ELECTRON_TRANSMITTER",
+        "FTX_3070",
+        "ROBOTRON_REFLECTOR",
+        "CORLEONITE",
+        "DIVAN_FRAGMENT",
+        "BOB_OMB",
+        "JUNGLE_KEY",
+        "SLUDGE_JUICE",
+        "YOGGIE"
 
-function makeCraftRecepies() {
+    ],
+    "combatFlip":[
 
-    document.getElementById('craftRecipies.txt')
-            .addEventListener('change', function() {
-              
-            var fr=new FileReader();
-            fr.onload=function(){
-                window.alert(fr.result);
-            }
-              
-            fr.readAsText(this.files[0]);
-        })
-}
-const miningRecipies = {
-    "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
-    "FINE_AMBER_GEM":{"FLAWED_AMBER_GEM":80},
-    "FINE_AMETHYST_GEM":{"FLAWED_AMETHYST_GEM":80},
-    "FINE_TOPAZ_GEM":{"FLAWED_TOPAZ_GEM":80},
-    "FLAWLESS_AMBER_GEM":{"FLAWED_AMBER_GEM":6400},
-    "ENCHANTED_LAVA_BUCKET":{"ENCHANTED_COAL_BLOCK":2,"ENCHANTED_IRON":3},
-    "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1}
+    ],
+    "woodFlip":[
 
+    ],
+    "fishingFlip":[
+        "CHUM",
+        "GLOWING_MUSHROOM"
+
+    ],
+    "odditiesFlip":[
+        "NECROMANCER_BROOCH",
+        "PROTECTOR_FRAGMENT",
+        "OLD_FRAGMENT",
+        "UNSTABLE_FRAGMENT",
+        "WISE_FRAGMENT",
+        "YOUNG_FRAGMENT",
+        "STRONG_FRAGMENT",
+        "SUPERIOR_FRAGMENT",
+        "HOLY_FRAGMENT",
+        "STOCK_OF_STONKS",
+        "THE_ART_OF_WAR"
+    ]
 };
 
-const odditiesRecipies = {
-    "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
-    "ENCHANTMENT_PRISTINE_1":{"FINE_TOPAZ_GEM":40,"SUGAR_CANE":21},
-    "ENCHANTMENT_PRISTINE_2":{"FINE_TOPAZ_GEM":80,"SUGAR_CANE":42},
-    "ENCHANTMENT_PRISTINE_3":{"FINE_TOPAZ_GEM":160,"SUGAR_CANE":84},
-    "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168},
-    "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
-    "ENCHANTMENT_ULTIMATE_BOBBIN_TIME_3":{"SPOOKY_WATER_ORB":1, "SHARK_WATER_ORB":1, "WINTER_WATER_ORB":1, "LAVA_WATER_ORB":1, "BOBBIN_SCRIPTURES":1},
-   
-};
-const fishRecipies = {
-    "FULL_CHUM_BUCKET":{"CHUM":10, "EMPTY_CHUM_BUCKET":1},
-    "EMPTY_CHUM_BUCKET":{"GLOWING_MUSHROOM": 8, "COIN":2000},
-    "SPOOKY_WATER_ORB":{"WATER_ORB":1,"PURPLE_CANDY":64, "WEREWOLF_SKIN":24, "SOUL_FRAGMENT":1},
-    "SHARK_WATER_ORB":{"WATER_ORB":1, "ENCHANTED_SHARK_FIN": 12,"BLUE_SHARK_TOOTH":8, "TIGER_SHARK_TOOTH":4, "NURSE_SHARK_TOOTH":16, "GREAT_WHITE_SHARK_TOOTH":1 },
-    'WINTER_WATER_ORB':{"WATER_ORB":1, "ICE_HUNK":128, "ENCHANTED_SNOW_BLOCK": 64, "BLUE_ICE_HUNK":32,"WHITE_GIFT":64, "GREEN_GIFT":16 },
-    'WATER_ORB':{"ENCHANTED_RAW_FISH":16, "ENCHANTED_WATER_LILY":8, "ENCHANTED_RAW_SALMON":16, "ENCHANTED_PRISMARINE_SHARD":16, "DIVER_FRAGMENT":1, "ENCHANTED_PRISMARINE_CRYSTALS":16, "ENCHANTED_SPONGE":4, "ENCHANTED_PUFFERFISH":16, "ENCHANTED_CLOWNFISH":8}
-};
-const farmingRecipies = {
-    "CONDENSED_FERMENTO":{"FERMENTO":9},
-    "ENCHANTED_GRILLED_PORK":{"ENCHANTED_PORK":160}
-};
-const woodRecipies = {};
-const combatRecipies = {};
-
-const miningFlip = [
-    "SYNTHETIC_HEART",
-    "SUPERLITE_MOTOR",
-    "CONTROL_SWITCH",
-    "ELECTRON_TRANSMITTER",
-    "FTX_3070",
-    "ROBOTRON_REFLECTOR"
-];
-const fishFlip = [];
-const farmingFlip = [];
-const woodFlip = [];
-const combatFlip = [];
-const odditiesFlip = [];
-
-//Crafted profit
+//Craft recipies for profit and used for flipped (May neeed to change)
 
 const craftRecipies = {
-    // "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
-    // "FINE_AMBER_GEM":{"FLAWED_AMBER_GEM":80},
-    // "FINE_AMETHYST_GEM":{"FLAWED_AMETHYST_GEM":80},
-    // "FINE_TOPAZ_GEM":{"FLAWED_TOPAZ_GEM":80},
-    // "FLAWLESS_AMBER_GEM":{"FLAWED_AMBER_GEM":6400},
-    //"SPOOKY_WATER_ORB":{"WATER_ORB":1,"PURPLE_CANDY":64, "WEREWOLF_SKIN":24, "SOUL_FRAGMENT":1},
-    //"ENCHANTMENT_ULTIMATE_BOBBIN_TIME_3":{"SPOOKY_WATER_ORB":1, "SHARK_WATER_ORB":1, "WINTER_WATER_ORB":1, "LAVA_WATER_ORB":1, "BOBBIN_SCRIPTURES":1},
-    "ACACIA_BIRDHOUSE":{"ENCHANTED_ACACIA_LOG":384},
-    // "SHARK_WATER_ORB":{"WATER_ORB":1, "ENCHANTED_SHARK_FIN": 12,"BLUE_SHARK_TOOTH":8, "TIGER_SHARK_TOOTH":4, "NURSE_SHARK_TOOTH":16, "GREAT_WHITE_SHARK_TOOTH":1 },
-    // 'WINTER_WATER_ORB':{"WATER_ORB":1, "ICE_HUNK":128, "ENCHANTED_SNOW_BLOCK": 64, "BLUE_ICE_HUNK":32,"WHITE_GIFT":64, "GREEN_GIFT":16 },
-    // 'WATER_ORB':{"ENCHANTED_RAW_FISH":16, "ENCHANTED_WATER_LILY":8, "ENCHANTED_RAW_SALMON":16, "ENCHANTED_PRISMARINE_SHARD":16, "DIVER_FRAGMENT":1, "ENCHANTED_PRISMARINE_CRYSTALS":16, "ENCHANTED_SPONGE":4, "ENCHANTED_PUFFERFISH":16, "ENCHANTED_CLOWNFISH":8},
-   // "CONDENSED_FERMENTO":{"FERMENTO":9},
-    // "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
-    // "ENCHANTMENT_PRISTINE_1":{"FINE_TOPAZ_GEM":40,"SUGAR_CANE":21},
-    // "ENCHANTMENT_PRISTINE_2":{"FINE_TOPAZ_GEM":80,"SUGAR_CANE":42},
-    // "ENCHANTMENT_PRISTINE_3":{"FINE_TOPAZ_GEM":160,"SUGAR_CANE":84},
-    // "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168},
-    // "ENCHANTED_LAVA_BUCKET":{"ENCHANTED_COAL_BLOCK":2,"ENCHANTED_IRON":3},
-    // "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1},
-    // "FULL_CHUM_BUCKET":{"CHUM":10, "EMPTY_CHUM_BUCKET":1},
-    // "EMPTY_CHUM_BUCKET":{"GLOWING_MUSHROOM": 8, "COIN":2000},
-    
-    //"ENCHANTED_GRILLED_PORK":{"ENCHANTED_PORK":160}
+    "farmingRecipies":{
+        "CONDENSED_FERMENTO":{"FERMENTO":9},
+        "ENCHANTED_GRILLED_PORK":{"ENCHANTED_PORK":160}
+    },
+    "miningRecipies":{
+        "FINE_JASPER_GEM":{"FLAWED_JASPER_GEM":80},
+        "FINE_AMBER_GEM":{"FLAWED_AMBER_GEM":80},
+        "FINE_AMETHYST_GEM":{"FLAWED_AMETHYST_GEM":80},
+        "FINE_TOPAZ_GEM":{"FLAWED_TOPAZ_GEM":80},
+        "FLAWLESS_AMBER_GEM":{"FLAWED_AMBER_GEM":6400},
+        "ENCHANTED_LAVA_BUCKET":{"ENCHANTED_COAL_BLOCK":2,"ENCHANTED_IRON":3},
+        "SUPER_COMPACTOR_3000":{"ENCHANTED_COBBLESTONE":448, "ENCHANTED_REDSTONE_BLOCK":1}
+    },
+    "combatRecipies":{
+
+    },
+    "woodRecipies":{
+
+    },
+    "fishingRecipies":{
+        "FULL_CHUM_BUCKET":{"CHUM":10, "EMPTY_CHUM_BUCKET":1},
+        "EMPTY_CHUM_BUCKET":{"GLOWING_MUSHROOM": 8, "COIN":2000},
+        "SPOOKY_WATER_ORB":{"WATER_ORB":1,"PURPLE_CANDY":64, "WEREWOLF_SKIN":24, "SOUL_FRAGMENT":1},
+        "SHARK_WATER_ORB":{"WATER_ORB":1, "ENCHANTED_SHARK_FIN": 12,"BLUE_SHARK_TOOTH":8, "TIGER_SHARK_TOOTH":4, "NURSE_SHARK_TOOTH":16, "GREAT_WHITE_SHARK_TOOTH":1 },
+        'WINTER_WATER_ORB':{"WATER_ORB":1, "ICE_HUNK":128, "ENCHANTED_SNOW_BLOCK": 64, "BLUE_ICE_HUNK":32,"WHITE_GIFT":64, "GREEN_GIFT":16 },
+        'WATER_ORB':{"ENCHANTED_RAW_FISH":16, "ENCHANTED_WATER_LILY":8, "ENCHANTED_RAW_SALMON":16, "ENCHANTED_PRISMARINE_SHARD":16, "DIVER_FRAGMENT":1, "ENCHANTED_PRISMARINE_CRYSTALS":16, "ENCHANTED_SPONGE":4, "ENCHANTED_PUFFERFISH":16, "ENCHANTED_CLOWNFISH":8}
+
+    },
+    "odditiesRecipies":{
+        "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
+        "ENCHANTMENT_PRISTINE_1":{"FINE_TOPAZ_GEM":40,"SUGAR_CANE":21},
+        "ENCHANTMENT_PRISTINE_2":{"FINE_TOPAZ_GEM":80,"SUGAR_CANE":42},
+        "ENCHANTMENT_PRISTINE_3":{"FINE_TOPAZ_GEM":160,"SUGAR_CANE":84},
+        "ENCHANTMENT_PRISTINE_4":{"FINE_TOPAZ_GEM":320,"SUGAR_CANE":168},
+        "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
+        "ENCHANTMENT_ULTIMATE_BOBBIN_TIME_3":{"SPOOKY_WATER_ORB":1, "SHARK_WATER_ORB":1, "WINTER_WATER_ORB":1, "LAVA_WATER_ORB":1, "BOBBIN_SCRIPTURES":1},
+        "ACACIA_BIRDHOUSE":{"ENCHANTED_ACACIA_LOG":384}
+    }
 };
+
 // "THE_ART_OF_WAR":{"ENCHANTED_GRILLED_PORK":2, "COIN":7500000}, Gone because only available for 4 year anniversary
 // "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
-//margin profit/Buy snd sell profit/Flipped profit
-const buyAndSellItems = [
-    "REFINED_MITHRIL",
-    "REFINED_TITANIUM", 
-    "NECROMANCER_BROOCH",
-    //"HOT_POTATO_BOOK",
-    "CONDENSED_FERMENTO",
-    "PROTECTOR_FRAGMENT",
-    "OLD_FRAGMENT",
-    "UNSTABLE_FRAGMENT",
-    "WISE_FRAGMENT",
-    "YOUNG_FRAGMENT",
-    "STRONG_FRAGMENT",
-    "SUPERIOR_FRAGMENT",
-    "HOLY_FRAGMENT",
-    "STOCK_OF_STONKS",
-    "SUPER_COMPACTOR_3000",
-    "DWARVEN_COMPACTOR",
-    "ENCHANTED_REDSTONE_BLOCK",
-    "FERMENTO",
-    "ENCHANTED_BAKED_POTATO",
-    "ENCHANTED_WATER_LILY",
-    "ENCHANTED_SNOW_BLOCK",
 
-    "DIVAN_FRAGMENT",
-    "BOB_OMB",
-    "CORLEONITE",
-    "JUNGLE_KEY",
-    "SYNTHETIC_HEART",
-    "SUPERLITE_MOTOR",
-    "CONTROL_SWITCH",
-    "ELECTRON_TRANSMITTER",
-    "FTX_3070",
-    "ROBOTRON_REFLECTOR",
-    "SLUDGE_JUICE",
-    "YOGGIE",
-
-    "CHUM",
-    "EMPTY_CHUM_BUCKET",
-    "FULL_CHUM_BUCKET",
-    "GLOWING_MUSHROOM",
-
-    "THE_ART_OF_WAR"
-
-
-]
-
+// function makeHomeData() {
+//     let homeData = {};
+//     for (theme of craftRecipies) {
+//         for(var i = 0; i < ) {
+//            if ()
+//         }
+//     }
+// }
 //"PIGMAN_SWORD":{"ENCHANTED_GRILLED_PORK":48},
 var reader;
 // var realresult = [];
@@ -168,6 +126,19 @@ function checkFileAPI() {
         alert('The File APIs are not fully supported by your browser. Fallback required.');
         return false;
     }
+}
+function makeCraftRecepies() {
+
+    document.getElementById('craftRecipies.txt')
+            .addEventListener('change', function() {
+              
+            var fr=new FileReader();
+            fr.onload=function(){
+                window.alert(fr.result);
+            }
+              
+            fr.readAsText(this.files[0]);
+        })
 }
 
 /**
@@ -299,7 +270,6 @@ function fetchData(link) {
         return NaN
     }
   }
-
 
   function getTotalBuyOrder(products, componentOb) {
     var sum = 0
@@ -494,6 +464,7 @@ function getMyStatus() {
     var onlineStatus = getApiCall('https://api.hypixel.net/status?uuid=f4343fa3ec3c42c9a7229488dc029e55');
     document.getElementById("my-status").innerHTML = JSON.stringify(onlineStatus);
 }
+//Need to change with the new structure of craft recipies
 function search_bar() {
     let searchInput = document.getElementById('searchInput').value;
     searchInput = searchInput.toUpperCase().replaceAll(" ", "_");
@@ -526,10 +497,6 @@ function getBestMM() {
 function reloadAh() {
     aHData = formatAHData();
 }
-
-
-// 
-
 
 // searchInput.addEventListener("keyup", (event) => {
 //     const { value } = event.target;
