@@ -464,6 +464,7 @@ function getMyStatus() {
     var onlineStatus = getApiCall('https://api.hypixel.net/status?uuid=f4343fa3ec3c42c9a7229488dc029e55');
     document.getElementById("my-status").innerHTML = JSON.stringify(onlineStatus);
 }
+//Need to change with the new structure of craft recipies
 function search_bar() {
     let searchInput = document.getElementById('searchInput').value;
     searchInput = searchInput.toUpperCase().replaceAll(" ", "_");
