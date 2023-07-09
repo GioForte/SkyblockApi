@@ -9,6 +9,7 @@ Things to do:
 //const bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
 //const fs = require('fs')
 
+//margin profit/Buy snd sell profit/Flipped profit
 // Items that can be flipped for money but cannot be crafted
 const flipItems = {
     "farmingFlip":[
@@ -97,16 +98,20 @@ const craftRecipies = {
         "HOT_POTATO_BOOK":{"SUGAR_CANE":3, "ENCHANTED_BAKED_POTATO":1},
         "ENCHANTMENT_ULTIMATE_BOBBIN_TIME_3":{"SPOOKY_WATER_ORB":1, "SHARK_WATER_ORB":1, "WINTER_WATER_ORB":1, "LAVA_WATER_ORB":1, "BOBBIN_SCRIPTURES":1},
         "ACACIA_BIRDHOUSE":{"ENCHANTED_ACACIA_LOG":384}
-
     }
-
 };
 
 // "THE_ART_OF_WAR":{"ENCHANTED_GRILLED_PORK":2, "COIN":7500000}, Gone because only available for 4 year anniversary
 // "ENCHANTMENT_PRISTINE_5":{"FINE_TOPAZ_GEM":640,"SUGAR_CANE":336},
-//margin profit/Buy snd sell profit/Flipped profit
 
-
+// function makeHomeData() {
+//     let homeData = {};
+//     for (theme of craftRecipies) {
+//         for(var i = 0; i < ) {
+//            if ()
+//         }
+//     }
+// }
 //"PIGMAN_SWORD":{"ENCHANTED_GRILLED_PORK":48},
 var reader;
 // var realresult = [];
