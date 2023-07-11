@@ -3,9 +3,10 @@ Things to do:
  - make craftRecepies have all recipies from each recipe JSON 
  - find a better way to structure the crafting recipies and flips (DONE)
  - Sort the arrays to show which makes the most money at the top (make this a switch)
- - Make a way to easily have statistics for 2 step crafting( Then 3 step and above)
+ - Make a way to easily have statistics for 2 step crafting( Then 3 step and above)(recursion)
  - get reading and writing to files working
  - allow to make and store crafting recipies on the application
+ - fix previous functions to appy to the new Recipie structure
 */
 
 //const bazaarLink = 'https://api.hypixel.net/skyblock/bazaar';
